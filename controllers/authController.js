@@ -19,6 +19,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.post('/register', isAuthNeeded(false), registerValidator, (req, res, next) => {
+    //TO DO error if repeatPassword is not matching
     const { email, password } = req.body;
     authService.register(email, password)
         .then(createdUser => {
