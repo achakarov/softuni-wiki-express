@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const isAuthNeeded = require('../middlewares/isAuthNeeded'); 4
+const isAuthNeeded = require('../middlewares/isAuthNeeded'); 
+const registerValidator = require('../middlewares/registerValidator');
 const { COOKIE_NAME } = require('../config/config');
 const authService = require('../services/authService');
 
@@ -17,7 +18,7 @@ router.get('/logout', (req, res) => {
         .redirect('/');
 });
 
-router.post('/register', isAuthNeeded(false), (req, res, next) => {
+router.post('/register', isAuthNeeded(false), registerValidator, (req, res, next) => {
     const { email, password } = req.body;
     authService.register(email, password)
         .then(createdUser => {

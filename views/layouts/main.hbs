@@ -38,6 +38,11 @@
             </header>
             <main>
                 <h1>Welcome to SoftUni Wiki!</h1>
+                {{#if error}}
+                <section id="notifications">
+                    <p>{{error.message}}</p>
+                </section>
+                {{/if}}
                 {{{body}}}
             </main>
             <footer>
