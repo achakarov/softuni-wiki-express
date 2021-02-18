@@ -2,21 +2,11 @@
     <h2>All articles</h2>
     <div class="spacer">
         <ul>
+            {{#each articles}}
             <li>
-                <a href="/articles/details/{{_id}}">Astronomy</a>
+                <a href="/articles/details/{{_id}}">{{title}}</a>
             </li>
-            <li>
-                <a href="/articles/details/{{_id}}">Galaxy</a>
-            </li>
-            <li>
-                <a href="/articles/details/{{_id}}">Planet</a>
-            </li>
-            <li>
-                <a href="/articles/details/{{_id}}">Star</a>
-            </li>
-            <li>
-                <a href="/articles/details/{{_id}}">Telescope</a>
-            </li>
+            {{/each}}
         </ul>
     </div>
 </section>
