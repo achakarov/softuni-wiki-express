@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const isAuthNeeded = require('../middlewares/isAuthNeeded'); 
-const registerValidator = require('../middlewares/registerValidator');
+const isAuthNeeded = require('../middlewares/isAuthNeeded');
 const { COOKIE_NAME } = require('../config/config');
 const authService = require('../services/authService');
 
@@ -18,9 +17,13 @@ router.get('/logout', (req, res) => {
         .redirect('/');
 });
 
-router.post('/register', isAuthNeeded(false), registerValidator, (req, res, next) => {
-    //TO DO error if repeatPassword is not matching
-    const { email, password } = req.body;
+router.post('/register', isAuthNeeded(false), (req, res, next) => {
+    //TO DO error if repeatPassword is not matching 
+
+    const { email, password, repeatPassword } = req.body;
+    if (password !== repeatPassword) {
+        return next({ message: 'Passwords must match!', status: 404 });
+    }
     authService.register(email, password)
         .then(createdUser => {
             res.redirect('/auth/login');
