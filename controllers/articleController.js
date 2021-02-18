@@ -9,10 +9,22 @@ router.get('/create', (req, res) => {
 router.get('/', (req, res, next) => {
     articleService.getAllArticles()
         .then(articles => {
-            console.log(articles)
-            res.render('all-articles', {articles});
+            res.render('all-articles', { articles });
         })
         .catch(next);
+});
+
+router.get('/details/:_id', async (req, res, next) => {
+
+    try {
+        let article = await articleService.getOne(req.params._id);
+        let authorId = article.author;
+        let isAuthor = authorId.toString() === res.user._id.toString();
+        res.render('details', { article, isAuthor });
+
+    } catch (error) {
+        return next({ message: error, status: 400 });
+    }
 });
 
 

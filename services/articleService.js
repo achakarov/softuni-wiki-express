@@ -10,7 +10,14 @@ async function getThreeMostRecentArticles() {
     return articles;
 }
 
+function getOne(id) {
+    return Article.findById(id).lean();
+}
+
+
+
 module.exports = {
     getAllArticles,
     getThreeMostRecentArticles,
+    getOne
 }
