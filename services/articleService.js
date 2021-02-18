@@ -14,10 +14,14 @@ function getOne(id) {
     return Article.findById(id).lean();
 }
 
+function deleteOne(id){
+    return Article.deleteOne(id);
+}
 
 
 module.exports = {
     getAllArticles,
     getThreeMostRecentArticles,
-    getOne
+    getOne,
+    deleteOne
 }

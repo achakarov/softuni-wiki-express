@@ -27,7 +27,22 @@ router.get('/details/:_id', async (req, res, next) => {
     }
 });
 
+router.get('/delete/:_id', (req, res, next) => {
+    articleService.deleteOne({ _id: req.params._id })
+        .then(result => {
+            res.redirect('/');
+        })
+        .catch(next);
+});
 
+router.get('/edit/:_id', (req, res, next) => {
+    Article.findOne({ _id: req.params._id })
+        .lean()
+        .then(article => {
+            res.render('edit', { ...article });
+        })
+        .catch(next);
+});
 
 
 router.post('/create', (req, res, next) => {
@@ -43,6 +58,15 @@ router.post('/create', (req, res, next) => {
     Article.create({ title, description, author: res.user._id })
         .then((createdArticle) => {
             res.redirect('/');
+        })
+        .catch(next);
+});
+
+router.post('/edit/:_id', (req, res, next) => {
+    const { _id } = req.params;
+    Article.updateOne({ _id }, { $set: { ...req.body } })
+        .then(updatedArticle => {
+            res.redirect(`/articles/details/${_id}`);
         })
         .catch(next);
 });
