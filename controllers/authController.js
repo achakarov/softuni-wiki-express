@@ -18,7 +18,6 @@ router.get('/logout', (req, res) => {
 });
 
 router.post('/register', isAuthNeeded(false), (req, res, next) => {
-    //TO DO error if repeatPassword is not matching 
 
     const { email, password, repeatPassword } = req.body;
     if (password !== repeatPassword) {
