@@ -14,10 +14,13 @@ function getOne(id) {
     return Article.findById(id).lean();
 }
 
-function deleteOne(id){
+function deleteOne(id) {
     return Article.deleteOne(id);
 }
 
+async function getArticlesOfAuthor(articleId, authorId) {
+
+}
 
 module.exports = {
     getAllArticles,
